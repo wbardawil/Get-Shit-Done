@@ -1,6 +1,9 @@
 // BDS OS — Edge Function: Determine Lifecycle Stage
 // POST { org_id }
 // Computes lifecycle stage from revenue + employee count and updates the organization.
+//
+// NOTE: Engine logic is inlined here because Deno edge functions bundle independently.
+// The canonical engine implementation lives at src/engines/lifecycle.ts.
 
 import { createServiceClient } from '../shared/supabase-client.ts';
 import { corsResponse, jsonResponse, errorResponse } from '../shared/cors.ts';
