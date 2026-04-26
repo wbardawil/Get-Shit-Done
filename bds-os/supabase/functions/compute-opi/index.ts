@@ -5,8 +5,8 @@
 import { createServiceClient } from '../shared/supabase-client.ts';
 import { corsResponse, jsonResponse, errorResponse, CORS_HEADERS } from '../shared/cors.ts';
 
-// Import engine logic (bundled at deploy time)
-// In production these would be bundled; here we inline the core logic.
+// NOTE: Engine logic is inlined here because Deno edge functions bundle independently.
+// The canonical engine implementation lives at src/engines/opi.ts for frontend and test use.
 
 Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') return corsResponse();

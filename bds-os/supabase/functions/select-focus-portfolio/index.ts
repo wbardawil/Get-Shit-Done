@@ -1,6 +1,9 @@
 // BDS OS — Edge Function: Select Focus Portfolio
 // POST { org_id, round_id, quarter }
 // Selects the WIP-limited set of active practices and auto-generates initiative stubs.
+//
+// NOTE: Engine logic is inlined here because Deno edge functions bundle independently.
+// The canonical engine implementation lives at src/engines/focus-portfolio.ts.
 
 import { createServiceClient } from '../shared/supabase-client.ts';
 import { corsResponse, jsonResponse, errorResponse } from '../shared/cors.ts';

@@ -2,6 +2,9 @@
 // POST { evidence_id }
 // AI-grades evidence against the practice's maturity rubric.
 // Returns structured grading result for UI rendering.
+//
+// NOTE: Engine logic is inlined here because Deno edge functions bundle independently.
+// The canonical engine implementation lives at src/engines/evidence-grader.ts.
 
 import { createServiceClient } from '../shared/supabase-client.ts';
 import { corsResponse, jsonResponse, errorResponse } from '../shared/cors.ts';
