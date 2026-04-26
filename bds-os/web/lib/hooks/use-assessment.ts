@@ -64,3 +64,48 @@ export function useUpsertResponse() {
     },
   });
 }
+
+export function useCreateRound() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (params: { organization_id: string; name: string }) => {
+      const supabase = createClient();
+      const { data, error } = await supabase
+        .from("assessment_rounds")
+        .insert(params)
+        .select()
+        .single();
+      if (error) throw error;
+      return data;
+    },
+    onSuccess: (_data, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: ["assessment-rounds", variables.organization_id],
+      });
+    },
+  });
+}
+
+export function useCompleteRound() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (params: {
+      round_id: string;
+      organization_id: string;
+    }) => {
+      const supabase = createClient();
+      const { error } = await supabase
+        .from("assessment_rounds")
+        .update({ completed_at: new Date().toISOString() })
+        .eq("id", params.round_id);
+      if (error) throw error;
+    },
+    onSuccess: (_data, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: ["assessment-rounds", variables.organization_id],
+      });
+    },
+  });
+}
